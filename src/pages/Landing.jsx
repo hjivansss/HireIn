@@ -1,70 +1,68 @@
 import React from 'react'
 import Navbar from '../components/navbar'
 import heroImage from '../assets/hero.png'
-import Footer from '../components/footer'
+import Footer from '../components/Footer'
 
 
 const Landing = () => {
   return (<>
         <Navbar />
-        <section className="relative mx-auto mt-8 h-[315px] w-[1180px] overflow-hidden rounded-3xl">
+        <section className="relative mx-4 mt-6 overflow-hidden rounded-2xl sm:mx-6 sm:mt-8 lg:mx-auto lg:max-w-7xl">
+            <div className="relative h-[420px] w-full sm:h-[460px] lg:h-[520px]">
 
-            {/* Background Image */}
-            <img
-              src={heroImage} 
-              alt="HireIn Hero"
-              className="absolute inset-0 h-full w-full object-cover"
-            />
+              {/* Background Image */}
+              <img
+                src={heroImage} 
+                alt="Recruiter reviewing candidate profiles on HireIn"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
 
-            {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black/30"></div>
+              {/* Single softened overlay — was two stacked pure-black layers */}
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/55 to-slate-900/10"></div>
 
-            {/* Left-to-Right Fade */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+              {/* Text Content */}
+              <div className="relative z-10 flex h-full max-w-xl flex-col justify-center px-6 sm:px-10 lg:px-12">
+                <h1 className="text-3xl font-bold leading-snug text-white sm:text-4xl lg:text-5xl lg:leading-tight">
+                  Hire Smarter.
+                  <br />
+                  Build
+                  <span className="text-emerald-300"> Stronger Teams.</span>
+                </h1>
 
-            {/* Text Content */}
-            <div className="relative z-10 flex h-full max-w-xl flex-col justify-center px-12">
-              <h1 className="text-4xl font-bold leading-tight text-white">
-                Hire Smarter.
-                <br />
-                Build
-                <span className="text-[#00674F]"> Stronger Teams.</span>
-              </h1>
+                <p className="mt-5 text-base leading-relaxed text-slate-200 sm:mt-6 sm:text-lg">
+                  Discover qualified candidates faster with a streamlined recruitment
+                  platform designed to help recruiters hire the right talent with confidence.
+                </p>
 
-              <p className="mt-6 text-lg text-gray-200">
-                Discover qualified candidates faster with a streamlined recruitment
-                platform designed to help recruiters hire the right talent with confidence.
-              </p>
-
-              <button className="mt-8 w-fit rounded-lg bg-[#00674F] px-6 py-3 font-semibold text-white hover:opacity-90 transition">
-                Start Hiring
-              </button>
+                <button className="mt-7 w-fit rounded-lg bg-brand px-6 py-3 font-semibold text-white transition-colors duration-200 hover:bg-brand-hover sm:mt-8">
+                  Start Hiring
+                </button>
+              </div>
             </div>
-
           </section>
 
-          <section className="bg-slate-50 py-20">
+          <section className="bg-slate-50 py-16 sm:py-20">
             <div className="mx-auto max-w-7xl px-6">
 
               {/* Heading */}
               <div className="text-center">
-                <h2 className="text-4xl font-bold text-slate-900">
-                  Hire in <span className="text-[#00674F]">3 Simple Steps</span>
+                <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
+                  Hire in <span className="text-brand">3 Simple Steps</span>
                 </h2>
 
-                <p className="mt-4 text-lg text-slate-600">
+                <p className="mt-4 text-base text-slate-600 sm:text-lg">
                   From job posting to candidate selection, streamline your recruitment
                   process with HireIn.
                 </p>
               </div>
 
               {/* Cards */}
-              <div className="mt-16 grid gap-8 md:grid-cols-3">
+              <div className="mt-12 grid gap-6 sm:mt-16 sm:gap-8 md:grid-cols-3">
 
                 {/* Card 1 */}
-                <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
 
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00674F] text-white font-semibold">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand font-semibold text-white">
                     1
                   </div>
 
@@ -80,9 +78,9 @@ const Landing = () => {
                 </div>
 
                 {/* Card 2 */}
-                <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
 
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00674F] text-white font-semibold">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand font-semibold text-white">
                     2
                   </div>
 
@@ -98,9 +96,9 @@ const Landing = () => {
                 </div>
 
                 {/* Card 3 */}
-                <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
 
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00674F] text-white font-semibold">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand font-semibold text-white">
                     3
                   </div>
 
