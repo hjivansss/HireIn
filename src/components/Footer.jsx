@@ -17,10 +17,10 @@ const Footer = () => {
           {/* Company */}
           <div>
             <div className="mb-4 flex items-center gap-2">
-              <BriefcaseBusiness size={30} className="text-[#00674F]" />
+              <BriefcaseBusiness size={30} className="text-brand" />
 
               <h2 className="text-2xl font-bold text-white">
-                Hire<span className="text-[#00674F]">In</span>
+                Hire<span className="text-brand">In</span>
               </h2>
             </div>
 
@@ -38,19 +38,19 @@ const Footer = () => {
             </h3>
 
             <div className="flex flex-col gap-3">
-              <Link className="hover:text-[#00674F]" to="/">
+              <Link className="hover:text-brand" to="/">
                 Home
               </Link>
 
-              <Link className="hover:text-[#00674F]" to="/recruiter">
+              <Link className="hover:text-brand" to="/recruiter">
                 For Recruiters
               </Link>
 
-              <Link className="hover:text-[#00674F]" to="/candidate">
+              <Link className="hover:text-brand" to="/candidate">
                 For Candidates
               </Link>
 
-              <Link className="hover:text-[#00674F]" to="/about">
+              <Link className="hover:text-brand" to="/about">
                 About Us
               </Link>
             </div>
@@ -80,17 +80,17 @@ const Footer = () => {
             <div className="space-y-4">
 
               <div className="flex items-center gap-3">
-                <Mail size={18} className="text-[#00674F]" />
+                <Mail size={18} className="text-brand" />
                 <span>support@hirein.com</span>
               </div>
 
               <div className="flex items-center gap-3">
-                <Phone size={18} className="text-[#00674F]" />
+                <Phone size={18} className="text-brand" />
                 <span>+91 98765 43210</span>
               </div>
 
               <div className="flex items-start gap-3">
-                <MapPin size={18} className="mt-1 text-[#00674F]" />
+                <MapPin size={18} className="mt-1 text-brand" />
                 <span>
                   Bengaluru, Karnataka
                   <br />
@@ -100,12 +100,12 @@ const Footer = () => {
 
               <div className="mt-6 flex gap-5">
                 <Mail
-                  className="cursor-pointer hover:text-[#00674F]"
+                  className="cursor-pointer hover:text-brand"
                   size={22}
                 />
 
                 <Globe
-                  className="cursor-pointer hover:text-[#00674F]"
+                  className="cursor-pointer hover:text-brand"
                   size={22}
                 />
               </div>
@@ -123,15 +123,15 @@ const Footer = () => {
           </p>
 
           <div className="mt-4 flex gap-6 md:mt-0">
-            <Link className="hover:text-[#00674F]" to="/">
+            <Link className="hover:text-brand" to="/">
               Privacy Policy
             </Link>
 
-            <Link className="hover:text-[#00674F]" to="/">
+            <Link className="hover:text-brand" to="/">
               Terms of Service
             </Link>
 
-            <Link className="hover:text-[#00674F]" to="/">
+            <Link className="hover:text-brand" to="/">
               Cookies
             </Link>
           </div>
