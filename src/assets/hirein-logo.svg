@@ -1,0 +1,49 @@
+<svg
+    width="64"
+    height="64"
+    viewBox="0 0 64 64"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <!-- Background -->
+
+    <rect
+        x="4"
+        y="4"
+        width="56"
+        height="56"
+        rx="18"
+        fill="#0F766E"
+    />
+
+    <!-- Left pillar -->
+
+    <rect
+        x="18"
+        y="16"
+        width="6"
+        height="32"
+        rx="3"
+        fill="white"
+    />
+
+    <!-- Right pillar -->
+
+    <rect
+        x="40"
+        y="16"
+        width="6"
+        height="32"
+        rx="3"
+        fill="white"
+    />
+
+    <!-- Connection -->
+
+    <path
+        d="M24 39 L40 25"
+        stroke="white"
+        stroke-width="6"
+        stroke-linecap="round"
+    />
+</svg>
