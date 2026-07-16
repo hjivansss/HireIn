@@ -1,146 +1,223 @@
-import {
-  BriefcaseBusiness,
-  Mail,
-  Phone,
-  MapPin,
-  Globe,
-} from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="mt-20 bg-slate-900 text-slate-300">
-      <div className="mx-auto max-w-7xl px-8 py-16">
+    <footer className="border-t border-slate-800 bg-[#162033] text-slate-300">
 
-        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto max-w-[1280px] px-6 py-20 lg:px-10">
+
+        {/* Top */}
+
+        <div className="grid gap-14 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+
+          {/* Brand */}
+
+          <div>
+
+            <Link
+              to="/"
+              className="flex items-center gap-3"
+            >
+
+              <Logo className="h-10 w-10" />
+
+              <span className="text-xl font-semibold text-white">
+                Hire<span className="text-brand">In</span>
+              </span>
+
+            </Link>
+
+            <p className="mt-6 max-w-sm text-[15px] leading-7 text-slate-400">
+              AI-powered recruitment platform helping recruiters discover,
+              evaluate and hire exceptional talent faster.
+            </p>
+
+          </div>
+
+          {/* Product */}
+
+          <div>
+
+            <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider text-white">
+              Platform
+            </h3>
+
+            <ul className="space-y-3 text-[15px]">
+
+              <li>
+                <Link
+                  to="/recruiters"
+                  className="transition hover:text-white"
+                >
+                  Recruiters
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/candidates"
+                  className="transition hover:text-white"
+                >
+                  Candidates
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/dashboard"
+                  className="transition hover:text-white"
+                >
+                  Dashboard
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/discover"
+                  className="transition hover:text-white"
+                >
+                  AI Matching
+                </Link>
+              </li>
+
+            </ul>
+
+          </div>
 
           {/* Company */}
+
           <div>
-            <div className="mb-4 flex items-center gap-2">
-              <BriefcaseBusiness size={30} className="text-brand" />
 
-              <h2 className="text-2xl font-bold text-white">
-                Hire<span className="text-brand">In</span>
-              </h2>
-            </div>
-
-            <p className="leading-7 text-slate-400">
-              HireIn is a modern recruitment platform built to help recruiters
-              discover exceptional talent, simplify hiring workflows, and build
-              stronger teams with confidence.
-            </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="mb-5 text-xl font-semibold text-white">
-              Quick Links
+            <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider text-white">
+              Company
             </h3>
 
-            <div className="flex flex-col gap-3">
-              <Link className="hover:text-brand" to="/">
-                Home
-              </Link>
+            <ul className="space-y-3 text-[15px]">
 
-              <Link className="hover:text-brand" to="/recruiter">
-                For Recruiters
-              </Link>
+              <li>
+                <Link
+                  to="/about"
+                  className="transition hover:text-white"
+                >
+                  About
+                </Link>
+              </li>
 
-              <Link className="hover:text-brand" to="/candidate">
-                For Candidates
-              </Link>
+              <li>
+                <Link
+                  to="/contact"
+                  className="transition hover:text-white"
+                >
+                  Contact
+                </Link>
+              </li>
 
-              <Link className="hover:text-brand" to="/about">
-                About Us
-              </Link>
-            </div>
-          </div>
+              <li>
+                <Link
+                  to="/careers"
+                  className="transition hover:text-white"
+                >
+                  Careers
+                </Link>
+              </li>
 
-          {/* Services */}
-          <div>
-            <h3 className="mb-5 text-xl font-semibold text-white">
-              Our Services
-            </h3>
+            </ul>
 
-            <div className="flex flex-col gap-3">
-              <p>Job Posting</p>
-              <p>Candidate Search</p>
-              <p>Resume Screening</p>
-              <p>Interview Management</p>
-              <p>Recruitment Analytics</p>
-            </div>
           </div>
 
           {/* Contact */}
+
           <div>
-            <h3 className="mb-5 text-xl font-semibold text-white">
-              Contact Us
+
+            <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider text-white">
+              Contact
             </h3>
 
-            <div className="space-y-4">
+            <ul className="space-y-4 text-[15px]">
 
-              <div className="flex items-center gap-3">
-                <Mail size={18} className="text-brand" />
-                <span>support@hirein.com</span>
-              </div>
+              <li className="flex items-center gap-3">
 
-              <div className="flex items-center gap-3">
-                <Phone size={18} className="text-brand" />
-                <span>+91 98765 43210</span>
-              </div>
+                <Mail className="h-4 w-4 text-brand" />
 
-              <div className="flex items-start gap-3">
-                <MapPin size={18} className="mt-1 text-brand" />
-                <span>
-                  Bengaluru, Karnataka
-                  <br />
-                  India
-                </span>
-              </div>
+                support@hirein.com
 
-              <div className="mt-6 flex gap-5">
-                <Mail
-                  className="cursor-pointer hover:text-brand"
-                  size={22}
-                />
+              </li>
 
-                <Globe
-                  className="cursor-pointer hover:text-brand"
-                  size={22}
-                />
-              </div>
+              <li className="flex items-center gap-3">
 
-            </div>
+                <Phone className="h-4 w-4 text-brand" />
+
+                +91 98765 43210
+
+              </li>
+
+              <li className="flex items-start gap-3">
+
+                <MapPin className="mt-1 h-4 w-4 text-brand" />
+
+                Bengaluru, India
+
+              </li>
+
+            </ul>
+
           </div>
 
         </div>
 
-        {/* Bottom */}
-        <div className="mt-14 border-t border-slate-700 pt-6 flex flex-col md:flex-row items-center justify-between">
+        {/* Divider */}
 
-          <p className="text-slate-400">
+        <div className="my-12 h-px bg-slate-800" />
+
+        {/* Bottom */}
+
+        <div className="flex flex-col items-center justify-between gap-5 text-sm text-slate-500 md:flex-row">
+
+          <p>
             © 2026 HireIn. All rights reserved.
           </p>
 
-          <div className="mt-4 flex gap-6 md:mt-0">
-            <Link className="hover:text-brand" to="/">
-              Privacy Policy
+          <div className="flex items-center gap-6">
+
+            <Link
+              to="/privacy"
+              className="transition hover:text-white"
+            >
+              Privacy
             </Link>
 
-            <Link className="hover:text-brand" to="/">
-              Terms of Service
+            <Link
+              to="/terms"
+              className="transition hover:text-white"
+            >
+              Terms
             </Link>
 
-            <Link className="hover:text-brand" to="/">
+            <Link
+              to="/cookies"
+              className="transition hover:text-white"
+            >
               Cookies
             </Link>
+
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-white"
+            >
+              <FaGithub className="h-5 w-5" />
+            </a>
+
           </div>
 
         </div>
 
       </div>
+
     </footer>
   );
-};
-
-export default Footer;
+}
