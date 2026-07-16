@@ -1,13 +1,17 @@
 @import "tailwindcss";
+
 @theme {
   --color-brand: #00674f;
   --color-brand-hover: #005240;
   --color-brand-soft: #e7f3f0;
 }
 
-/* Visible keyboard focus everywhere (WCAG 2.2 SC 2.4.7) — mouse users never
-   see this, keyboard users always do. */
 @layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-white text-slate-800 antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
   a:focus-visible,
   button:focus-visible {
     outline: 2px solid var(--color-brand);
@@ -16,11 +20,8 @@
   }
 }
 
-/* Respect reduced-motion preference site-wide instead of per-component */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
