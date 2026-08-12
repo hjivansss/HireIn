@@ -13,7 +13,7 @@ import {
 import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import Logo from "./Logo"; // adjust path if needed
-
+import LogoutButton from "./LogoutButton";
 const menuItems = [
   {
     title: "Dashboard",
