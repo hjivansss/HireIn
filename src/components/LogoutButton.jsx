@@ -1,15 +1,14 @@
-// LogoutButton.jsx — calls logout() from auth_api and redirects to landing
-
 import { useNavigate } from 'react-router-dom'
 import { LogOut } from 'lucide-react'
 import { logout } from '../api/auth_api'
 
-const LogoutButton = ({ variant = 'navbar' }) => {
+// Accepts both variant='navbar' and collapsed prop (used by sidebar)
+const LogoutButton = ({ variant = 'sidebar', collapsed = false }) => {
   const navigate = useNavigate()
 
   const handleLogout = () => {
-    logout()          // clears token + user from localStorage
-    navigate('/')     // back to landing page
+    logout()
+    navigate('/')
   }
 
   if (variant === 'navbar') {
@@ -24,16 +23,18 @@ const LogoutButton = ({ variant = 'navbar' }) => {
     )
   }
 
-  // Sidebar variant
+  // Sidebar variant — respects collapsed state
   return (
     <button onClick={handleLogout}
-      className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5
+      className={`flex w-full items-center rounded-xl px-3 py-2.5
         text-sm font-medium text-slate-500 transition-all duration-200
-        hover:bg-red-50 hover:text-red-600">
-      <LogOut className="h-4 w-4 shrink-0" />
-      Logout
+        hover:bg-red-50 hover:text-red-600
+        ${collapsed ? 'justify-center' : 'gap-3'}`}>
+      <LogOut size={20} className="shrink-0" />
+      {!collapsed && <span>Logout</span>}
     </button>
   )
 }
 
 export default LogoutButton
+

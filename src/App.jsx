@@ -35,8 +35,9 @@ function App() {
       <Route path='/login'   element={<Login />} />
       <Route path='/signup'  element={<Signup />} />
 
-      {/* Candidate page — public (candidates upload resumes without login) */}
-      <Route path='/candidate' element={<Candidate />} />
+      {/* Candidate page — (candidates upload resumes , linkedin zip) */}
+      <Route path='/candidate' element={
+        <ProtectedRoute> <Candidate /> </ProtectedRoute>} />
 
       {/* ── Protected recruiter routes ────────────────────────── */}
       <Route path='/recruiters' element={
