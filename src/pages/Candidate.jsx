@@ -1,9 +1,10 @@
-import { useState, useRef } from 'react'
-import { Upload, FileText, FolderArchive, CheckCircle, XCircle, X } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { Upload, FileText, FolderArchive, CheckCircle, XCircle, X, Briefcase, Calendar, Layers, ChevronDown, ChevronUp } from 'lucide-react'
 import Navbar from '../components/navbar'
 import Footer from '../components/Footer'
 import { uploadResume } from '../api/resume_api'
 import { uploadLinkedinZip } from '../api/linkedin_api'
+import { getCandidateJDs } from '../api/jd_api'
 
 /* ─── Resume Upload Card ─────────────────────────────────── */
 const ResumeUploadCard = () => {
@@ -266,6 +267,119 @@ const LinkedInUploadCard = () => {
   )
 }
 
+const BrowseJobs = () => {
+  const [jds, setJds] = useState([])
+  const [showAll, setShowAll] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getCandidateJDs()
+      .then(data => setJds(data))
+      .catch(() => setJds([]))
+      .finally(() => setLoading(false))
+  }, [])
+
+  const displayed = showAll ? jds : jds.slice(0, 3)
+
+  if (loading) return (
+    <div className="space-y-3">
+      {[1, 2, 3].map(i => (
+        <div key={i} className="animate-pulse rounded-2xl border border-slate-200 bg-white p-6">
+          <div className="h-5 w-40 rounded bg-slate-100 mb-3" />
+          <div className="h-4 w-full rounded bg-slate-100 mb-2" />
+          <div className="h-4 w-3/4 rounded bg-slate-100" />
+        </div>
+      ))}
+    </div>
+  )
+
+  if (!jds.length) return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center">
+      <Briefcase className="mx-auto h-10 w-10 text-slate-200 mb-3" />
+      <p className="font-medium text-slate-500">No open positions yet</p>
+      <p className="mt-1 text-sm text-slate-400">Check back soon</p>
+    </div>
+  )
+
+  return (
+    <div className="space-y-4">
+      {displayed.map((jd, i) => (
+        <div key={i}
+          className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:border-brand/30">
+
+          {/* Role title */}
+          <h3 className="text-lg font-bold text-slate-900">{jd.job_role || 'Open Position'}</h3>
+
+          {/* Meta info */}
+          <div className="mt-2 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+            {jd.employment_type && (
+              <span className="flex items-center gap-1.5">
+                <Briefcase className="h-4 w-4" /> {jd.employment_type}
+              </span>
+            )}
+            {jd.experience_required && (
+              <span className="flex items-center gap-1.5">
+                <Layers className="h-4 w-4" /> {jd.experience_required}
+              </span>
+            )}
+            {jd.location && <span>📍 {jd.location}</span>}
+            {jd.created_at && (
+              <span className="ml-auto flex items-center gap-1.5 text-xs text-slate-400">
+                <Calendar className="h-3.5 w-3.5" />
+                {new Date(jd.created_at).toLocaleDateString('en-IN', {
+                  day: '2-digit', month: 'short', year: 'numeric',
+                })}
+              </span>
+            )}
+          </div>
+
+          {/* Skills badges */}
+          {(jd.required_skills || []).length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {jd.required_skills.map((s, j) => (
+                <span key={j} className="rounded-full bg-brand/10 px-3 py-0.5 text-xs font-medium text-brand">
+                  {s}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Full original JD text */}
+          {jd.original_text && (
+            <p className="mt-4 text-sm text-slate-600 leading-relaxed">
+              {jd.original_text}
+            </p>
+          )}
+
+          {/* Key responsibilities */}
+          {(jd.key_responsibilities || []).length > 0 && (
+            <ul className="mt-3 space-y-1.5">
+              {jd.key_responsibilities.map((r, j) => (
+                <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
+                  {r}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+
+      {/* Show more / less button */}
+      {jds.length > 3 && (
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white py-3 text-sm font-medium text-slate-600 transition-all hover:border-brand hover:text-brand"
+        >
+          {showAll
+            ? <><ChevronUp className="h-4 w-4" /> Show Less</>
+            : <><ChevronDown className="h-4 w-4" /> Show All {jds.length} Positions</>}
+        </button>
+      )}
+    </div>
+  )
+}
+
 /* ─── Main Page ──────────────────────────────────────────── */
 const Candidate = () => {
   return (
@@ -298,10 +412,19 @@ const Candidate = () => {
             <LinkedInUploadCard />
           </div>
         </section>
+        {/* Open Positions */}
+<section className="mx-auto max-w-7xl px-6 pb-16">
+  <div className="mb-6">
+    <h2 className="text-2xl font-bold text-slate-900">Available Jobs</h2>
+    <p className="mt-1 text-sm text-slate-500">
+      Browse available roles and upload your resume above to apply.
+    </p>
+  </div>
+  <BrowseJobs />
+</section>
       </main>
       <Footer />
     </>
   )
 }
-
 export default Candidate
