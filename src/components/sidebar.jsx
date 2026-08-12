@@ -10,7 +10,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import Logo from "./Logo"; // adjust path if needed
 
@@ -55,25 +55,26 @@ export default function Sidebar() {
 
       <div className="flex h-20 items-center justify-between border-b border-slate-200 px-5">
 
-        <div
-          className={`flex items-center gap-3 overflow-hidden ${
-            collapsed ? "justify-center w-full" : ""
-          }`}
-        >
-          <Logo className="h-10 w-10 flex-shrink-0" />
+        <Link
+  to="/dashboard"
+  className={`flex items-center gap-3 overflow-hidden ${
+    collapsed ? "justify-center w-full" : ""
+  }`}
+>
+  <Logo className="h-10 w-10 flex-shrink-0" />
 
-          {!collapsed && (
-            <div>
-              <h2 className="text-lg font-semibold text-slate-900">
-                HireIn
-              </h2>
+  {!collapsed && (
+    <div>
+      <h2 className="text-lg font-semibold text-slate-900">
+        HireIn
+      </h2>
 
-              <p className="text-xs text-slate-500">
-                AI Recruitment
-              </p>
-            </div>
-          )}
-        </div>
+      <p className="text-xs text-slate-500">
+        AI Recruitment
+      </p>
+    </div>
+  )}
+</Link>
 
         {!collapsed && (
           <button
@@ -114,6 +115,7 @@ export default function Sidebar() {
               <NavLink
                 key={item.title}
                 to={item.path}
+                end={item.path === "/dashboard"}
                 className={({ isActive }) =>
                   `
                   flex items-center rounded-xl px-3 py-3 transition-all duration-200
@@ -141,35 +143,37 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {/* Bottom */}
+  {/* Bottom */}
 
-      <div className="absolute bottom-0 w-full border-t border-slate-200 p-3">
+<div className="absolute bottom-0 w-full border-t border-slate-200 p-3 space-y-2">
 
-        <NavLink
-          to="/dashboard/settings"
-          className={({ isActive }) =>
-            `
-            flex items-center rounded-xl px-3 py-3 transition
+  <NavLink
+    to="/dashboard/settings"
+    className={({ isActive }) =>
+      `
+      flex items-center rounded-xl px-3 py-3 transition
 
-            ${
-              isActive
-                ? "bg-brand/10 text-brand"
-                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-            }
+      ${
+        isActive
+          ? "bg-brand/10 text-brand"
+          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+      }
 
-            ${collapsed ? "justify-center" : "gap-3"}
-          `
-          }
-        >
-          <Settings size={20} />
+      ${collapsed ? "justify-center" : "gap-3"}
+    `
+    }
+  >
+    <Settings size={20} />
 
-          {!collapsed && (
-            <span className="text-sm font-medium">
-              Settings
-            </span>
-          )}
-        </NavLink>
-      </div>
+    {!collapsed && (
+      <span className="text-sm font-medium">
+        Settings
+      </span>
+    )}
+  </NavLink>
+
+  <LogoutButton collapsed={collapsed} />
+</div>
     </aside>
   );
 }

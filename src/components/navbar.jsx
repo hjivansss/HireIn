@@ -9,7 +9,8 @@ const navLinks = [
   { name: "About", path: "/about" },
   { name: "Contact", path: "/contact" },
 ];
-
+import LogoutButton from "./LogoutButton";
+import { isLoggedIn } from "../api/auth_api";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -83,29 +84,33 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* Right Side */}
+     <div className="hidden items-center gap-5 lg:flex">
 
-        <div className="hidden items-center gap-5 lg:flex">
+  {isLoggedIn() ? (
+    <LogoutButton />
+  ) : (
+    <>
+      <Link
+        to="/login"
+        className={`text-sm font-medium transition ${
+          scrolled
+            ? "text-slate-600 hover:text-slate-900"
+            : "text-slate-700 hover:text-black"
+        }`}
+      >
+        Sign in
+      </Link>
 
-          <Link
-            to="/login"
-            className={`text-sm font-medium transition ${
-              scrolled
-                ? "text-slate-600 hover:text-slate-900"
-                : "text-slate-700 hover:text-black"
-            }`}
-          >
-            Sign in
-          </Link>
+      <Link
+        to="/signup"
+        className="rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+      >
+        Start Hiring
+      </Link>
+    </>
+  )}
 
-          <Link
-            to="/signup"
-            className="rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            Start Hiring
-          </Link>
-
-        </div>
+</div>
 
         {/* Mobile Button */}
 
