@@ -86,93 +86,130 @@ const RecommendationBadge = ({ rec }) => {
 
 // ── Candidate Row ─────────────────────────────────────────────────────────────
 
-const CandidateRow = ({ candidate, index }) => (
-  <div className="flex items-start gap-4 rounded-xl border border-slate-100 bg-slate-50 p-4 transition-colors hover:bg-white hover:border-slate-200">
-    {/* Rank */}
-    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand/10 text-xs font-bold text-brand">
-      #{index + 1}
-    </div>
+const CandidateRow = ({ candidate, index }) => {
+  const sources = candidate.sources || []
 
-    {/* Info */}
-    <div className="flex-1 min-w-0">
-      <div className="flex items-center gap-2 flex-wrap">
-        <p className="font-semibold text-slate-900">{candidate.name || '—'}</p>
-        <TierBadge tier={candidate.tier} />
-        <RecommendationBadge rec={candidate.recommendation} />
+  return (
+    <div className="flex items-start gap-4 rounded-xl border border-slate-100 bg-slate-50 p-4 transition-colors hover:bg-white hover:border-slate-200">
+
+      {/* Rank */}
+      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand/10 text-xs font-bold text-brand">
+        #{index + 1}
       </div>
 
-      <div className="mt-1 flex flex-wrap gap-3 text-xs text-slate-500">
-        {candidate.current_role && <span>{candidate.current_role}</span>}
-        {candidate.location && <span>📍 {candidate.location}</span>}
-        {candidate.total_experience_years && (
-          <span>{candidate.total_experience_years} yrs exp</span>
-        )}
-      
+      {/* Info */}
+      <div className="flex-1 min-w-0">
 
-{candidate.email && (
-  <a
-    href={`mailto:${candidate.email}`}
-    className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700 hover:bg-emerald-200 transition-colors"
-  >
-    ✉ Contact
-  </a>
-)}
-      </div>
-
-      {/* Skills */}
-      {(candidate.matched_skills || []).length > 0 && (
-        <div className="mt-2 flex flex-wrap gap-1">
-          {candidate.matched_skills.slice(0, 4).map((s, i) => (
-            <span key={i} className="rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">
-              ✓ {s}
-            </span>
-          ))}
+        {/* Name + Badges */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <p className="font-semibold text-slate-900">{candidate.name || '—'}</p>
+          <TierBadge tier={candidate.tier} />
+          <RecommendationBadge rec={candidate.recommendation} />
         </div>
-      )}
 
-      {/* Justification */}
-      {candidate.justification && (
-        <p className="mt-2 text-xs text-slate-500 line-clamp-2">{candidate.justification}</p>
-      )}
+        {/* Meta */}
+        <div className="mt-1 flex flex-wrap gap-3 text-xs text-slate-500">
+          {candidate.current_role && <span>{candidate.current_role}</span>}
+          {candidate.location && <span>📍 {candidate.location}</span>}
+          {candidate.total_experience_years && (
+            <span>{candidate.total_experience_years} yrs exp</span>
+          )}
+          {candidate.email && (
+            <a href={`mailto:${candidate.email}`}
+              className="text-brand hover:underline">
+              {candidate.email}
+            </a>
+          )}
+        </div>
+
+        {/* Source badges — shows where candidate came from */}
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {sources.includes('github') && (
+            <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">
+              🐙 GitHub
+            </span>
+          )}
+          {(sources.includes('linkedin_zip') || sources.includes('linkedin_manual')) && (
+            <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-600">
+              💼 LinkedIn
+            </span>
+          )}
+          {sources.includes('resume') && (
+            <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-600">
+              📄 Resume
+            </span>
+          )}
+        </div>
+
+        {/* Matched skills */}
+        {(candidate.matched_skills || []).length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1">
+            {candidate.matched_skills.slice(0, 4).map((s, i) => (
+              <span key={i} className="rounded-full bg-emerald-50 px-2 py-0.5 text-xs text-emerald-700">
+                ✓ {s}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Justification */}
+        {candidate.justification && (
+          <p className="mt-2 text-xs text-slate-500 line-clamp-2">{candidate.justification}</p>
+        )}
+
+        {/* Action links — only shown when URL exists */}
+        <div className="mt-3 flex flex-wrap gap-2">
+
+          {/* GitHub → opens GitHub profile */}
+          {candidate.github_url && (
+            <a href={candidate.github_url} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5
+                text-xs font-semibold text-white hover:bg-black transition-colors">
+              🐙 View GitHub
+            </a>
+          )}
+
+          {/* Resume → build URL from file_path field */}
+          {sources.includes('resume') && candidate.resume_url && (
+          
+            <a href={`https://docs.google.com/viewer?url=${encodeURIComponent(candidate.resume_url)}&embedded=false`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5
+              text-xs font-semibold text-white hover:bg-emerald-700 transition-colors">
+            📄 View Resume
+          </a>
+        )}
+          {/* LinkedIn → opens LinkedIn profile */}
+          {candidate.linkedin_url && (
+            <a href={candidate.linkedin_url} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3 py-1.5
+                text-xs font-semibold text-white hover:bg-blue-700 transition-colors">
+              💼 LinkedIn
+            </a>
+          )}
+
+          {/* Portfolio → opens personal website */}
+          {candidate.portfolio_url && (
+            <a href={candidate.portfolio_url} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5
+                text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+              🌐 Portfolio
+            </a>
+          )}
+
+        </div>
+      </div>
+
+      {/* Fit Score */}
+      <div className="shrink-0 text-right">
+        <p className="text-2xl font-bold text-brand">{candidate.overall_fit_score}</p>
+        <p className="text-xs text-slate-400">Fit Score</p>
+      </div>
+
     </div>
-
-    {/* Score */}
-    <div className="shrink-0 flex flex-col items-end gap-2">
-
-  <div className="text-right">
-    <p className="text-2xl font-bold text-brand">
-      {candidate.overall_fit_score}
-    </p>
-    <p className="text-xs text-slate-400">Fit Score</p>
-  </div>
-
-  {candidate.sources?.includes("resume") && (
-    <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-      📄 Resume
-    </span>
-  )}
-
-  {candidate.sources?.includes("linkedin_zip") && (
-    <span className="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">
-      💼 LinkedIn
-    </span>
-  )}
-
-  {candidate.github_url && (
-    <a
-      href={candidate.github_url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="rounded-full bg-gray-900 px-3 py-1 text-xs font-medium text-white hover:bg-black"
-    >
-      🐙 GitHub ↗
-    </a>
-  )}
-
-</div>
-  </div>
-)
-
+  )
+}
 // ── Pool Card ─────────────────────────────────────────────────────────────────
 
 const PoolCard = ({ pool }) => {
